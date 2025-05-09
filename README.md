@@ -220,6 +220,10 @@ Fuzzing is often used to test for memory bugs, especially in programming languag
 
 [Valgrind](https://valgrind.org/) is a classic fuzzing tool that identifies bugs in various and sundry programming languages. Note that Valgrind itself contains memory bugs, and often crashes.
 
+### .NET
+
+[.NET](https://dotnet.microsoft.com/en-us/) is in a warring states period of conflicting [unit test frameworks](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#.NET).
+
 ### C/C++
 
 [cmake](https://cmake.org/) features task runners / build systems, package managers, and the `ctest` unit test tool for C/C++ projects.
@@ -269,6 +273,20 @@ Haskell supports a syntax variant called "Literal Haskell" which flips the norma
 [Mockito](https://site.mockito.org/) is a prominent framework for managing mocks in JVM/Java unit tests.
 
 [PowerMock](https://github.com/powermock/powermock) helps JVM/Java developers to test objects involving difficult-to-test publicity designs.
+
+### Lua
+
+[Lua](https://lua.org/) is in a warring states period of competing [unit test frameworks](https://www.reddit.com/r/lua/comments/haih3z/what_unit_test_frameworks_are_people_using/).
+
+### Node.js
+
+[Node.js](https://nodejs.org/en/) is the conventional software development base environment for working with ECMAScript, including JavaScript (client-side, server-side, and otherwise), altJS languages, and WASM.
+
+[booty](https://github.com/mcandre/booty) is a convention for writing build tasks in JavaScript code, without necessarily having to install additional dependencies beyond Node.js.
+
+[Grunt](https://gruntjs.com/) is a build system enabling Node.js et. al. projects to implement build tasks in JavaScript code.
+
+[Mocha](https://mochajs.org/) is a common base unit test framework for Node.js et. al. projects. There are other unit test frameworks and some of them don't even compile.
 
 ### Python
 
