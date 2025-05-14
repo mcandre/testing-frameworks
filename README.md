@@ -202,14 +202,24 @@ Fuzzing is often used to test for memory bugs, especially in programming languag
 
 Many programming language lack premier fuzzing frameworks. As a workaround, implement fuzzing manually.
 
+For narrow bit width data types (boolean, nibble, byte, short), simply enumerating every possible value is a great way to test software behavior; That's essentially formal verification.
+
+Fuzzing can be understood as a trick of using random values to *approximate* enumeration, where larger bitwidths may be computationally challenging to process all the possible values with limited time, space, and money.
+
 ### Manual Fuzzing
 
 For each logical property you want to test, implement two essential checks:
 
-* Check that the property holds when the inputs are zero valued (`null`, `nil`, `false`, `0`, `[]`, `{}`, `'()`, etc.)
+* Check that the property holds when the inputs are zero valued (`null`, `false`, `0`, `""`, `[]`, `{}`, etc.)
 * Check that the property holds when the inputs are random.
 
-Loop random checks to some practical degree of comprehensiveness (e.g. 10000 iterations).
+Zero value testing is essential for the same reason that the password "password" should never be used in production: Testing that the simplest, most obvious inputs should not trigger unpredictable software behavior.
+
+Random value testing checks general application usage, assuming a uniform distribution of input values. When evaluating tests with random data, loop the test over many iterations (e.g. 10000+). Better yet, loop test cases forever and instead time-bound the test (e.g. `10s`). That way, your fuzzing tests will naturally deepen their comprehensive inspection of the code to grow alog with improvements in CPU speeds over time.
+
+Ensure the random number generator is seeded before the loop. Otherwise, many consecutive iterations are likely to accidentally generate the very same test data, instead of 10000+ unique test cases.
+
+#### Tips
 
 Collections, including arrays, sets, hashmaps, sets, and **strings**, should have random lengths. Most random generator libraries crucially omit implementing string generation; generate random bytes, and then convert the bytes to strings via UTF-8 or application specific character set(s). Specify some practical upper limit on the length of these collections, and enforce them at multiple validation levels throughout your system, from client-side frontend code, through backend network API's, to backend object construction, to database schemas.
 
