@@ -21,7 +21,7 @@ import (
 
 func Ratio(x int, y int) (error, int) {
     if y == 0 {
-        return errors.New("zero division")
+        return errors.New("zero denominator")
     }
 
     return nil, x/y
@@ -200,6 +200,29 @@ The input/state space of a program is exponentially larger than the number of li
 
 Fuzzing is often used to test for memory bugs, especially in programming languages that offer manual memory management.
 
+Many programming language lack premier fuzzing frameworks. As a workaround, implement fuzzing manually.
+
+### Manual Fuzzing
+
+For each logical property you want to test, implement two essential checks:
+
+* Check that the property holds when the inputs are zero valued (`null`, `nil`, `false`, `0`, `[]`, `{}`, `'()`, etc.)
+* Check that the property holds when the inputs are random.
+
+Loop random checks to some practical degree of comprehensiveness (e.g. 10000 iterations).
+
+Collections, including arrays, sets, hashmaps, sets, and **strings**, should have random lengths. Most random generator libraries crucially omit implementing string generation; generate random bytes, and then convert the bytes to strings via UTF-8 or application specific character set(s). Specify some practical upper limit on the length of these collections, and enforce them at multiple validation levels throughout your system, from client-side frontend code, through backend network API's, to backend object construction, to database schemas.
+
+Establish upper limits on collection data. Strings can be measured with many different units, especially when C-style null termination behavior is involved, or post-ASCII runes are involved. When in doubt, specify limits in terms of bytes. Fairly short strings may follow conventions such as `PATH_MAX` (on the order of 4096 bytes or 1024 bytes), though OS distributions vary in the value as well as the binding of this constant. Files may be limited at application specific sizes (e.g. 100 MiB), though file size fluctuates depending on the precise file systems involved, explicit and/or transport compression, etc. Blog articles and documents with several pages, are often unbounded, with corresponding processing fees to offset usage.
+
+For complex objects, write constructors that generate objects from random primitive data types.
+
+Avoid narrowing random value bounds into subsets of intact data type states, which would defeat the purpose of fuzzing. Assume attackers will submit random bits.
+
+Use default, time based seeds. In property violation test reports, indicate the seed, to facilitate reproducing errors for troubleshooting.
+
+Mature fuzzing frameworks include exactly these features, plus automatic simplification of failing test data.
+
 ## Programming Language Testing Tools
 
 ### *
@@ -216,13 +239,13 @@ Fuzzing is often used to test for memory bugs, especially in programming languag
 
 [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck) is a fuzzing framework with support for a wide variety of programming languages.
 
-[OSS-Fuzz](https://google.github.io/oss-fuzz/) supports fuzzing in C, C++, JVM/Java, Go, Python, and Rust projects.
+[OSS-Fuzz](https://google.github.io/oss-fuzz/) is a centralized project that volunteers to test a select few, extremely popular software components. It is not designed for general consumption by software developers.
 
 [Valgrind](https://valgrind.org/) is a classic fuzzing tool that identifies bugs in various and sundry programming languages. Note that Valgrind itself contains memory bugs, and often crashes.
 
 ### .NET
 
-[.NET](https://dotnet.microsoft.com/en-us/) is in a warring states period of conflicting [unit test frameworks](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#.NET).
+[NUnit](https://nunit.org/) is a cross-platform .NET unit testing framework. Other frameworks may break non-Windows environments and/or Mono.
 
 ### C/C++
 
