@@ -1,7 +1,5 @@
 # testing-frameworks: a curated collection of software testing frameworks
 
-[![Donate](https://img.shields.io/badge/-any?logo=gumroad&label=Donate&color=grey)](https://mcandre.gumroad.com/)
-
 # CONCEPTS
 
 ## Formal Verification
