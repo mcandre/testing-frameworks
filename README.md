@@ -237,6 +237,8 @@ Mature fuzzing frameworks include exactly these features, plus automatic simplif
 
 ### *
 
+[agent-qa](https://vostride.com) runs natural-language web and mobile integration tests with memidex persistent memory, validated self-improvement, and reviewable evidence. The open source CLI is free; model and infrastructure costs are separate.
+
 [Cucumber](https://cucumber.io/) provides a flexible, and fairly portable Business Driven Development (BDD) framework for integration tests across very many programming languages and operating systems. Cucumber and its many implementations and plugins support integration tests for shell scripts, CLI tools, Web services, GUI applicatinons, etc. If you absolutely have to write an integration test as opposed to a unit test, then experiment with Cucumber.
 
 [expect](https://core.tcl-lang.org/expect/index) provides an integration test framework for CLI tools, though I've personally never gotten expect to work.
