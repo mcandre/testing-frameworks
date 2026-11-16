@@ -1,5 +1,7 @@
 # testing-frameworks: a curated collection of software testing frameworks
 
+[![License](https://badgen.net/static/license/CC?color=fff&icon=creative-commons)](LICENSE.md)
+
 # CONCEPTS
 
 ## Formal Verification
